@@ -1,21 +1,13 @@
-<!DOCTYPE html 
-     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-	<head>
-		<title>eklitzke.org | λx.evan</title>
-		<link rel="shortcut icon" href="/favicon.ico" type="image/ico" />
-		<link rel="stylesheet" href="/css/eklitzke.css" type="text/css" />
-	</head>
-	<body>
-		<h1>λx.evan</h1>
-		<p>this is the website of evan klitzke.</p>
-		<h2>about me</h2>
-		<p>i work as a programmer for <a href="http://www.yelp.com/">yelp</a>.
-		in addition to programming i like to ride my bike and read. if you want
-		to get in touch with me you can email me at (my first name)@eklitzke.org</p>
-		<h2>code</h2>
-		<p>i like to hack on code, and i've written some neat things (to be
-		elaborated upon at a future date).</p>
-	</body>
-</html>
+{% extends "base.html" %}
+{% block body %}
+<h1>λx.evan</h1>
+<p>this is the website of evan klitzke.</p>
+<h2>about me</h2>
+<p>i work as a programmer for <a href="http://www.yelp.com/">yelp</a>.
+  in addition to programming i like to ride my bike and read. if you want
+  to get in touch with me you can email me at (my first name)@eklitzke.org</p>
+<h2>code</h2>
+<p>i like to hack on code, and i've written some neat things; most of
+  the open source bits can be found
+  on <a href="http://github.com/eklitzke">my github account</a>.</p>
+{% endblock %}
