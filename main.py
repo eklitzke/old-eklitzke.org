@@ -8,8 +8,8 @@ from eck.view import *
 
 application = webapp.WSGIApplication(
     [('/', Home),
-	 ('/.*', Home) # Base case is to go to home, which redirects to /
-	], debug=True)
+     ('/.*', Home) # Base case is to go to home, which redirects to /
+    ], debug=True)
 
 def main():
     run_wsgi_app(application)

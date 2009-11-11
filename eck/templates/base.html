@@ -3,16 +3,16 @@
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
-	{% block head %}
-	<title>eklitzke.org | {{ title|e }}</title>
-	<link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon" />
-	<link rel="stylesheet" href="/css/eklitzke.css" type="text/css" />
-	{% endblock %}
+    {% block head %}
+    <title>eklitzke.org | {{ title|e }}</title>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon" />
+    <link rel="stylesheet" href="/css/eklitzke.css" type="text/css" />
+    {% endblock %}
   </head>
   <body>
-	{% block body %}
-	<h1>{{ title|e }}</h1>
-	{% block body_content %}{% endblock %}
-	{% endblock %}
+    {% block body %}
+    <h1>{{ title|e }}</h1>
+    {% block body_content %}{% endblock %}
+    {% endblock %}
   </body>
 </html>
