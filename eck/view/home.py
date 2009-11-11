@@ -6,4 +6,4 @@ class Home(RequestHandler):
 		if self.request.path != '/':
 			self.redirect('/')
 			return
-		self.render_template('index.html')
+		self.render_template('home.html')
