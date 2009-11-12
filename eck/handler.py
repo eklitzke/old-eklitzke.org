@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from jinja2 import Environment, PackageLoader
-jinja_env = Environment(loader=PackageLoader('eck', 'templates'))
+from jinja2 import Environment, FileSystemLoader
+jinja_env = Environment(loader=FileSystemLoader('templates'))
 
 from google.appengine.ext.webapp import RequestHandler as _RequestHandler
 
