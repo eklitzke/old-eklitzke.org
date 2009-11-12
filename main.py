@@ -7,8 +7,12 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 from eck.view import *
 
 application = webapp.WSGIApplication(
-    [('/', Home),
-     ('/.*', Home) # Base case is to go to home, which redirects to /
+    [(r'/', Home),
+     (r'/data', ObjectManager),
+     (r'/data/new', ObjectManager),
+     (r'/data/update/(.*)', DataAccess),
+     (r'/data/([^/]+)', DataAccess),
+     (r'/.*', Home) # Base case is to go to home, which redirects to /
     ], debug=True)
 
 def main():

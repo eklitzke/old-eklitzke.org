@@ -4,14 +4,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     {% block head %}
-    <title>eklitzke.org | {{ title|e }}</title>
+    <title>eklitzke.org | {% if title %}{{ title|e }}{% else %}λx.evan{% endif %}</title>
     <link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon" />
     <link rel="stylesheet" href="/css/eklitzke.css" type="text/css" />
     {% endblock %}
   </head>
   <body>
     {% block body %}
-    <h1>{{ title|e }}</h1>
+    <h1>λx.evan{% if title %} | {{ title|e }}{% endif %}</h1>
     {% block body_content %}{% endblock %}
     {% endblock %}
   </body>

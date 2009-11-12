@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block body_content %}
+<h2>extant objects ({{ num_objects }})</h2>
+<table>
+  <tr>
+    <th>name</th>
+    <th>size</th>
+    <th>created</th>
+    <th>public?</th>
+    <th>owner</th>
+    <th>delete?</th>
+    <th></th>
+  </tr>
+  {% for object in objects %}
+    <tr>
+      <form action="/data/update/{{object.key().id()}}" method="post">
+        <td><a href="/data/{{ object.name|e }}">{{ object.name|e }}</a></td>
+        <td>{{ "%1.1f kb"|format(object.size_kb,) }}</td>
+        <td>{{ object.created.strftime('%Y-%m-%d %H:%M') }}</td>
+        <td>{% if object.public %}
+          yes <input type="checkbox" name="public" value="false" default="true" checked="yes" />
+          {% else %}
+          no <input type="checkbox" name="public" value="true" default="false" />
+          {% endif %}
+        </td>
+        <td>{{ object.owner }}</td>
+        <td><input type="checkbox" name="delete" value="true" /></td>
+        <td><input type="submit" value="update" /></td>
+      </form>
+  </tr>
+  {% endfor %}
+  </table>
+
+<h2>upload a new object</h2>
+<form action="/data/new" method="post" enctype="multipart/form-data">
+  name: <input type="text" name="filename" /> <br />
+  notes: <br /><textarea name="comments" cols=80 rows=4></textarea> <br />
+  file: <input type="file" name="file_obj" /> <br />
+  public: <input type="checkbox" name="public" value="is_public" checked="yes" /> <br />
+  <input type="submit" value="create" />
+</form>
+{% endblock %}
