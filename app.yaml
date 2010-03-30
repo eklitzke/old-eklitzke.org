@@ -1,5 +1,5 @@
-application: evan-test
-version: 1
+application: eklitzke-dot-org
+version: 2
 runtime: python
 api_version: 1
 
@@ -11,6 +11,17 @@ handlers:
     - url: /(css|js|images)/(.+)
       static_files: static/\1/\2
       upload: static/(css|js|images)/(.+)
+      expiration: 1d
+    
+    - url: /fonts/(.+)
+      static_files: static/fonts/\1
+      upload: static/fonts/(.+)
+      expiration: 7d
+
+    - url: /reminder
+      static_files: static/html/reminder.html
+      upload: static/html/reminder.html
+      expiration: 1d
 
     - url: /.*
       script: main.py

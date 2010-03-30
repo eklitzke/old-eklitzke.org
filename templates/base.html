@@ -1,18 +1,17 @@
-<!DOCTYPE html 
-     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
   <head>
     {% block head %}
     <title>eklitzke.org | {% if title %}{{ title|e }}{% else %}λx.evan{% endif %}</title>
-    <link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon" />
-    <link rel="stylesheet" href="/css/eklitzke.css" type="text/css" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon">
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.0.0/build/cssreset/reset-min.css">
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.0.0/build/cssfonts/fonts-min.css">
+    <link rel="stylesheet" href="/css/eklitzke.css" type="text/css">
+    <script src="/js/home.js"></script>
     {% endblock %}
   </head>
   <body>
     {% block body %}
-    <h1>λx.evan{% if title %} | {{ title|e }}{% endif %}</h1>
-    {% block body_content %}{% endblock %}
     {% endblock %}
   </body>
 </html>

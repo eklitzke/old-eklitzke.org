@@ -1,22 +1,65 @@
-html { font-family: sans-serif; }
-
-body { border: 1px solid gray; }
-
-h1 {
-	font-size: 1.3em;
-	border-bottom: 1px solid gray;
-	background-color: #EEE;
-	margin-top: 0;
-	padding-left: 0.6em;
+@font-face {
+    font-family: Inconsolata;
+    src: url("../fonts/Inconsolata.eot");
+    /*src: local("Consolas"), local("Inconsolata");*/
 }
 
-h2 {
-	font-size: 1.1em;
-	padding-left: 0.6em;
-	margin-bottom: 0.25em;
+body {
+     font-family: Consolas, Inconsolata, monospace;
+    color: #ECECEC;
+    width: 940px;
+    font-size: 116%;
+    padding: 15px 0 0 15px;
+    background-image: none;
 }
 
-p {
-	margin-top: 0;
-	padding-left: 0.6em;
+#top-focused {
+    position: absolute;
+    left: 15px;
+    top: 15px;
 }
+
+#top-unfocused {
+    position: absolute;
+    left: 15px;
+    top: 16px;
+}
+
+#top-focused { z-index: 1; }
+#top-unfocused { z-index: 2; }
+
+#bottom {
+    position: absolute;
+    top: 50px;
+    z-index: -1;
+    }
+
+h1, h2 { font-weight: bold; }
+h2 { padding-top: 0.2em; }
+p { padding-bottom: 0.3em; }
+
+#content {
+    position: absolute;
+    left: 15px;
+    top: 68px;
+    width: 940px;
+    background-image: url("/images/background.png");
+    background-repeat: repeat-y;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+#bd {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#y { margin: 0 0 -9px 0; }
+
+a { text-decoration: underline; color: #ececec; }
+
+#prompt { font-weight: bold; }
+#purple { color: #ad7fa8; }
+#green { color: #8ae234; }
+#yellow { color: #fce94f; }
+#blue { color: #729fcf; }
