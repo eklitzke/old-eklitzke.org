@@ -32,7 +32,6 @@ function Wall(width, height) {
 			} else {
 				var s = {x: last.x + offset, y: last.y + 100, width: newWidth};
 			}
-			console.info(s);
 			this.segments.push(s);
 			last = s;
 		}

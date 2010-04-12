@@ -20,10 +20,10 @@ function Ship (width, height, baseHeight) {
 		ctx.closePath();
 		ctx.fill();
 
-		ctx.arc(this.pos - w + 3, this.baseHeight + 3, 3, 0, 2 * Math.PI);
-		ctx.arc(this.pos - w + 3, this.baseHeight + this.height - 3, 3, 0, 2 * Math.PI);
-		ctx.arc(this.pos + w - 3, this.baseHeight + 3, 3, 0, 2 * Math.PI);
-		ctx.arc(this.pos + w - 3, this.baseHeight + this.height - 3, 3, 0, 2 * Math.PI);
+		ctx.arc(this.pos - w + 3, this.baseHeight + 3, 3, 0, 2 * Math.PI, false);
+		ctx.arc(this.pos - w + 3, this.baseHeight + this.height - 3, 3, 0, 2 * Math.PI, false);
+		ctx.arc(this.pos + w - 3, this.baseHeight + 3, 3, 0, 2 * Math.PI, false);
+		ctx.arc(this.pos + w - 3, this.baseHeight + this.height - 3, 3, 0, 2 * Math.PI, false);
 		ctx.fill();
 	};
 
