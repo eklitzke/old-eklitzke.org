@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+	<title>drifter: a js/canvas game</title>
+	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.1.0/build/cssreset/reset-min.css">
+	<link rel="stylesheet" type="text/css" href="/css/drifter.css">
+	<script src="/js/ship.js" type="text/javascript"></script>
+	<script src="/js/walls.js" type="text/javascript"></script>
+	<script src="/js/game.js" type="text/javascript"></script>
+	<script src="/js/main.js" type="text/javascript"></script>
+  </head>
+  <body onload="init()">
+	<h1>drifter: a js/canvas game</h1>
+	<canvas id="canvas" width="400" height="500"></canvas>
+	<div id="description">
+	<div class="directive">instructions: </div>
+	<ul>
+	  <li>hitting <strong>space</strong> begins a new game</li>
+	  <li>move your ship with the left/right arrow keys</li>
+	  <li>earn bonuses for drifting for long distances</li>
+	  <li>avoid the walls at all costs</li>
+	</ul>
+	  <div class="directive">about: </div>
+	  created by <a href="http://www.eklitzke.org/">evan klitzke</a>; inspired by
+	  the <a href="http://www.ticalc.org/archives/files/fileinfo/214/21467.html"><span class="nowrap">TI-89</span>
+	  game</a> by eric burgess.
+	<p>
+	  source code available <a href="http://github.com/eklitzke/drifter">on github</a>.
+	</p>
+	</div>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+html {
+	height: 100%;
+	min-width: 450px;
+	overflow: hidden;
+}
+
+body {
+	height: 100%;
+	font-family: sans;
+	padding: 10px 10px 0 20px;
+	background-color: #232323;
+	color: #acffa8;
+}
+
+h1 {
+	font-size: 130%;
+	font-weight: bold;
+	padding-bottom: 0.3em;
+}
+
+p { padding-bottom: 0.3em; }
+strong { font-weight: bold; }
+
+a {
+	font-decoration: underline;
+	color: #acffa8;
+}
+
+.directive { font-weight: bold; }
+
+.nowrap {
+	white-space: nowrap;
+}
+
+
+#description {
+	max-width: 400px;
+}
+
+ul { padding-top: 0.35em; }
+
+ul li:before {
+    content: "\00BB \0020";
+}
