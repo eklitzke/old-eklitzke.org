@@ -36,16 +36,16 @@ var rightDown = false;
 function accelerateShip(direction) {
 	if (game) {
 		game.ship.accelerate(direction);
-		accelId = setTimeout(function() { accelerateShip(direction); }, 100);
+		accelId = setTimeout(function() { accelerateShip(direction); }, 75);
 	}
 }
 
 document.onkeydown = function (e) {
 	if (game && game.keepGoing && !game.gameOver) {
-		if (e.which == 37 && !leftDown) {
+		if (e.which == 37 && !leftDown && !rightDown) {
 			leftDown = true;
 			accelerateShip(-1);
-		} else if (e.which == 39 && !rightDown) {
+		} else if (e.which == 39 && !rightDown && !leftDown) {
 			rightDown = true;
 			accelerateShip(1);
 		}
@@ -63,7 +63,7 @@ document.onkeydown = function (e) {
 			game.tick();
 		}
 	}
-}
+};
 
 document.onkeyup = function (e) {
 
@@ -79,4 +79,4 @@ document.onkeyup = function (e) {
 		clearTimeout(accelId);
 		accelId = null;
 	}
-}
+};

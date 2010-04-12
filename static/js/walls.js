@@ -23,14 +23,15 @@ function Wall(width, height) {
 		while (last.y <= this.height) {
 			var newWidth = width + (2 * Math.random() - 1) * widthVol;
 			var offset = movement * (Math.random() * 2 - 1);
+			var s;
 
 			var x = last.x + this.width / 2 + offset;
 			if (x + newWidth >= this.width) {
-				var s = {x: last.x - movement, y: last.y + 100, width: newWidth};
+				s = {x: last.x - movement, y: last.y + 100, width: newWidth};
 			} else if (x - newWidth <= 0) {
-				var s = {x: last.x + movement, y: last.y + 100, width: newWidth};
+				s = {x: last.x + movement, y: last.y + 100, width: newWidth};
 			} else {
-				var s = {x: last.x + offset, y: last.y + 100, width: newWidth};
+				s = {x: last.x + offset, y: last.y + 100, width: newWidth};
 			}
 			this.segments.push(s);
 			last = s;

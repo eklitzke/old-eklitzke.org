@@ -45,7 +45,7 @@ function Game () {
 				this.gameOver = true;
 			this.pos += this.velocity;
 			this.walls.shift(5);
-			this.walls.extend(this.width / 3, this.width / 12, this.width / 6);
+			this.walls.extend(this.width / 3, this.width / 10, this.width / 7);
 
 			this.ship.move();
 
@@ -61,6 +61,14 @@ function Game () {
 		if (this.keepGoing) {
 			var now = (new Date()).valueOf();
 			this.ctx.fillText(((now - this.ship.moveTime) / 1000).toFixed(2), this.width * 0.87, 20);
+			if (this.ship.bonus) {
+				this.ctx.font = "14pt monospace";
+				var i, pos = this.height - this.ship.baseHeight;
+				for (i = 0; i < this.ship.bonus; i++) {
+					this.ctx.fillText("*", this.width - 15, pos);
+					pos -= 15;
+				}
+			}
 		} else {
 			this.ctx.fillText("0.00", this.width * 0.87, 20);
 		}
