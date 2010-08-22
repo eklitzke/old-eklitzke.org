@@ -1,23 +1,24 @@
-html { background-color: #edf7f8; }
+/* html { background-color: #edf7f8; } */
+html { background-color: #f1e2ff; }
 #bd { position: absolute;
-	  left: 0px;
-	  top: 0px;
-	  cursor: default;
-	}
+      left: 0px;
+      top: 0px;
+      cursor: default;
+    }
 #bd:hover { cursor: pointer; }
 #terminal { position: absolute;
-			left: 5px; 
-			top: 20px;
-			}
+            left: 5px;
+            top: 20px;
+            }
 #content { font-family: 'Droid Sans Mono', monospace;
-		   font-size: 16px;
-		   position: absolute;
-		   left: 38px;
-		   top: 55px;
-		   width: 695px;
-		   color: #eeeeec;
-		   background-color: #1f1f1f;
-		 }
+           font-size: 16px;
+           position: absolute;
+           left: 38px;
+           top: 55px;
+           width: 695px;
+           color: #eeeeec;
+           background-color: #1f1f1f;
+         }
 
 a { text-decoration: underline; color: inherit; }
 h2 { font-weight: bold; }

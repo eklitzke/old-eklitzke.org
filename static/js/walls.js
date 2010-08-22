@@ -48,6 +48,12 @@ function Wall(width, height) {
 	};
 
 	this.checkCollision = function (ctx, ship) {
+		// It's actually possible for the ship to pass right through the wall,
+		// which the code below doesn't check. This partially mitigates the
+		// problem by ensuring that the ship is on-screen.
+		if (Math.abs(ship.pos) >= this.width / 2)
+			return true;
+
 		var lhs = ship.lhs();
 		var rhs = ship.rhs();
 		var i, pl, pr, ql, qr, s;
