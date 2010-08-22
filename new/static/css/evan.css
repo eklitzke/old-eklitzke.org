@@ -1,0 +1,27 @@
+html { background-color: #edf7f8; }
+#bd { position: absolute;
+	  left: 0px;
+	  top: 0px;
+	  cursor: default;
+	}
+#bd:hover { cursor: pointer; }
+#terminal { position: absolute;
+			left: 5px; 
+			top: 20px;
+			}
+#content { font-family: 'Droid Sans Mono', monospace;
+		   font-size: 16px;
+		   position: absolute;
+		   left: 38px;
+		   top: 55px;
+		   width: 695px;
+		   color: #eeeeec;
+		   background-color: #1f1f1f;
+		 }
+
+a { text-decoration: underline; color: inherit; }
+h2 { font-weight: bold; }
+strong { font-weight: bold; }
+.purple { color: #ad7fa8; }
+.green { color: #8ae234; }
+.blue { color: #729fcf; }
