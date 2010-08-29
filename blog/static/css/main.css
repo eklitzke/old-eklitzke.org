@@ -2,7 +2,7 @@
 @import url(http://fonts.googleapis.com/css?family=Droid+Sans+Mono);
 
 html { font-family: 'Droid Sans', sans-serif; }
-#bd { margin: 2em; max-width: 960px; }
+#bd { margin: 2em; max-width: 800px; }
 th { padding-right: 1em; font-weight: bold; }
 td { padding-right: 1em; }
 tt { font-family: 'Droid Sans Mono', monospace; background: #f9f9f9; }
