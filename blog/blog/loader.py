@@ -45,9 +45,8 @@ if __name__ == '__main__':
         if opts.update:
             post = get_post(opts.update)
             post.title = title
-            post.body = body
+            post.content = body
             post.time_updated = datetime.datetime.now()
-            print body
             post.save()
         else:
             post = db.Post.new_post(title, body)

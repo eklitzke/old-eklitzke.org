@@ -1,3 +1,5 @@
 *.py[co]
 \#*#
 *~
+build
+blog/build
