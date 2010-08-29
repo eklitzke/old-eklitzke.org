@@ -1,4 +1,3 @@
-import os
 import tornado.web
 from tornado.web import authenticated
 from blog import base_path, config
@@ -19,10 +18,16 @@ class RequestHandler(tornado.web.RequestHandler):
 
 class MainHandler(RequestHandler):
 
-    path = '/'
+    paths = [
+        '/',
+        '/post/.+',
+        ]
 
     def get(self):
-        post = self.get_argument('post', None)
+        uri = self.request.uri.lstrip('/')
+        post = None
+        if uri:
+            post = uri.split('/')[-1]
         if post:
             posts = [db.Post.by_id(post)]
         else:
@@ -55,24 +60,14 @@ class AdminHandler(RequestHandler):
         self.env['posts'] = db.Post.query(order_by='time_created', desc=True)
         self.render('admin.html')
 
-def builds_paths():
-    paths = []
-    for v in globals().itervalues():
-        try:
-            if issubclass(v, RequestHandler):
-                if hasattr(v, 'path'):
-                    paths.append((v.path, v))
-                if hasattr(v, 'paths'):
-                    paths.extend((p, v) for p in v.paths)
-        except TypeError:
-            continue
-    return paths
 
-application = tornado.web.Application(
-    builds_paths(),
-    login_url='/login',
-    cookie_secret='3c8670ee7fbfea1757c7c25ae0bb1dd2',
-    template_path=os.path.join(base_path, 'templates'),
-    static_path=os.path.join(base_path, 'static'),
-    xsrf_cookies=True,
-    debug=True)
+paths = []
+for v in globals().values():
+    try:
+        if issubclass(v, RequestHandler):
+            if hasattr(v, 'path'):
+                paths.append((v.path, v))
+            if hasattr(v, 'paths'):
+                paths.extend((p, v) for p in v.paths)
+    except TypeError:
+        continue

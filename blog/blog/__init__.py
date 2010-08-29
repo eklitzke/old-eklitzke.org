@@ -10,4 +10,4 @@ with open(yaml_path) as yaml_file:
     config = yaml.load(yaml_file)
 
 import blog.db
-from blog.handlers import application
+import blog.handlers

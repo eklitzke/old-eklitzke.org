@@ -2,7 +2,7 @@
 
 {% block body %}
 <div class="blog_heading">
-  <span class="blog_title">eklitzke.blog</span>
+  <a href="/" class="blog_title">eklitzke.blog</a>
   <span class="blog_subtitle">the musings of evan klitzke</span>
 </div>
 
@@ -10,7 +10,7 @@
 <div class="post">
   <div class="header">
     <span class="title">{{ post.title }}</span>
-    <span class="post_date">{{ post.time_created.strftime('%Y-%m-%d %H:%M') }}</span>
+    <a href="/post/{{ post.id }}">{{ post.time_created.strftime('%Y-%m-%d %H:%M') }}</a>
   </div>
   <div class="post_content">
     {{ post.content }}
