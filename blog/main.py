@@ -1,0 +1,24 @@
+import daemon
+import optparse
+
+import tornado.web
+import tornado.ioloop
+import tornado.httpserver
+
+def main(opts, args):
+    import blog
+    http_server = tornado.httpserver.HTTPServer(blog.application)
+    http_server.listen(opts.port)
+    tornado.ioloop.IOLoop.instance().start()
+
+if __name__ == '__main__':
+    parser = optparse.OptionParser()
+    parser.add_option('-f', dest='foreground', action='store_true', default=True, help='run in the foreground')
+    parser.add_option('-p', '--port', type='int', default='8888', help='which port to listen on')
+    opts, args = parser.parse_args()
+
+    if opts.foreground:
+        main(opts, args)
+    else:
+        with daemon.DaemonContext():
+            main(opts,args)

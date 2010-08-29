@@ -1,0 +1,26 @@
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans);
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans+Mono);
+
+html { font-family: 'Droid Sans', sans-serif; }
+#bd { margin: 2em; max-width: 960px; }
+th { padding-right: 1em; font-weight: bold; }
+td { padding-right: 1em; }
+tt { font-family: 'Droid Sans Mono', monospace; background: #f9f9f9; }
+p { margin-top: 1em; }
+
+.blog_title { font-size: 150%; font-weight: bold; }
+.blog_subtitle { font-size: 110%; color: #666; margin-left: 1em; }
+.blog_heading { margin-bottom: 1em; }
+
+.title { font-size: 120%; font-weight: bold; }
+
+.header { margin-bottom: 0.5em; }
+.header .post_date { font-size: 90%; color: #888; margin-left: 1em; }
+.post_content { margin-bottom: 2em; }
+
+.clear { clear: both; }
+.bold { font-weight: bold; }
+.tt { font-family: 'Droid Sans Mono', monospace; }
+.green_bg { background: #d9ffe0; }
+.pad_left { margin-left: 1em; }
+.bpad { margin-bottom: 1em; }

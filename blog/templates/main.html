@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="blog_heading">
+  <span class="blog_title">eklitzke.blog</span>
+  <span class="blog_subtitle">the musings of evan klitzke</span>
+</div>
+
+{% for post in posts %}
+<div class="post">
+  <div class="header">
+    <span class="title">{{ post.title }}</span>
+    <span class="post_date">{{ post.time_created.strftime('%Y-%m-%d %H:%M') }}</span>
+  </div>
+  <div class="post_content">
+    {{ post.content }}
+  </div>
+</div>
+{% end %}
+{% end %}
