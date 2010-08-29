@@ -13,7 +13,7 @@ def main(opts, args):
 
 if __name__ == '__main__':
     parser = optparse.OptionParser()
-    parser.add_option('-f', dest='foreground', action='store_true', default=True, help='run in the foreground')
+    parser.add_option('-f', dest='foreground', action='store_true', default=False, help='run in the foreground')
     parser.add_option('-p', '--port', type='int', default='8888', help='which port to listen on')
     opts, args = parser.parse_args()
 
