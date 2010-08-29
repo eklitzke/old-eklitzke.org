@@ -22,6 +22,8 @@ html { background-color: #e7e2ff; }
 a { text-decoration: underline; color: inherit; }
 h2 { font-weight: bold; }
 strong { font-weight: bold; }
+p { margin-top: 1em; }
 .purple { color: #ad7fa8; }
 .green { color: #8ae234; }
 .blue { color: #729fcf; }
+.vgap { margin-top: 1em; }
