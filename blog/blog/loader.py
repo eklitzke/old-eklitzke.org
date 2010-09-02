@@ -55,7 +55,7 @@ if __name__ == '__main__':
             post = db.Post.new_post(title, body)
             print post.id
         elif opts.dump:
-            post = get_post(opts.update)
+            post = get_post(opts.dump)
             print post.title
             print
             print post.content
