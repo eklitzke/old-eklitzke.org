@@ -36,13 +36,15 @@ if __name__ == '__main__':
         parser.error('Must specify exactly one from -n, -u, -d, --dump')
 
     if opts.new or opts.update or opts.dump:
-        if len(args) != 1:
-            parser.error('Expected exactly one argument for -n/-u')
-        filepath = args[0]
-        if not os.path.exists(filepath):
-            parser.error('No such file: %r' % (filepath,))
-        with open(filepath) as f:
-            title, body = parse(f.read())
+        if opts.new or opts.update:
+            if len(args) != 1:
+                parser.error('Expected exactly one argument for -n/-u')
+            filepath = args[0]
+            if not os.path.exists(filepath):
+                parser.error('No such file: %r' % (filepath,))
+            with open(filepath) as f:
+                title, body = parse(f.read())
+
         if opts.update:
             post = get_post(opts.update)
             post.title = title
