@@ -17,7 +17,7 @@ class Post(Base):
         orm.String('title', 255, nullable=False),
         orm.Text('content', nullable=False),
         orm.DateTime('time_created'),
-        orm.DateTime('time_updated')
+        orm.DateTime('time_updated'),
         orm.Boolean('active', default=False)
         ]
 
