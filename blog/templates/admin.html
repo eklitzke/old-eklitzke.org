@@ -16,12 +16,14 @@
 
 <table>
   <tr>
+    <th>Status</th>
     <th>Title</th>
     <th>Date</th>
     <th>Content</th>
   </tr>
 {% for post in posts %}
   <tr title="{{post.id}}" onClick="updatePostId('{{post.id}}')">
+    <td>{{ "active" if post.active else "inactive" }}</td>
     <td>{{post.title}}</td>
     <td>{{post.time_created.strftime('%Y-%m-%d %H:%M')}}</td>
     <td>{{post.trimmed_content()}}</td>

@@ -14,18 +14,23 @@ Base = orm.make_base(session, tags_file=os.path.join(base_path, 'tags.yaml'))
 class Post(Base):
 
     _columns = [
-        orm.VARCHAR('title', 255, nullable=False),
-        orm.TEXT('content', nullable=False),
-        orm.DATETIME('time_created'),
-        orm.DATETIME('time_updated')
+        orm.String('title', 255, nullable=False),
+        orm.Text('content', nullable=False),
+        orm.DateTime('time_created'),
+        orm.DateTime('time_updated')
+        orm.Boolean('active', default=False)
         ]
 
-    _indexes = [['time_created']]
+    _indexes = [['time_created'], ['active', 'time_created']]
 
     @classmethod
-    def new_post(cls, title, content):
+    def new_post(cls, title, content, active=False):
         now = datetime.datetime.now()
-        return cls(post_id=schemaless.guid(), title=title, content=content, time_created=now, time_updated=now).save()
+        return cls(post_id=schemaless.guid(), title=title, content=content, time_created=now, time_updated=now, active=active).save()
+
+    @classmethod
+    def active(cls):
+        return c.active == True
 
     def trimmed_content(self, length=80):
         if len(self.content) < length:
@@ -35,8 +40,8 @@ class Post(Base):
 class PostTag(Base):
 
     _columns = [
-        orm.CHAR('post_id', 32, nullable=False),
-        orm.VARCHAR('tag', 255, nullable=False)
+        orm.Char('post_id', 32, nullable=False),
+        orm.String('tag', 255, nullable=False)
         ]
 
     _indexes = [['post_id'], ['tag']]

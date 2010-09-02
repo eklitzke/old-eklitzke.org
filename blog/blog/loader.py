@@ -29,12 +29,13 @@ if __name__ == '__main__':
     parser.add_option('-n', '--new', default=False, action='store_true', help='Write a new post')
     parser.add_option('-u', '--update', default=None, help='Update an older post')
     parser.add_option('-d', '--delete', default=None, help='Delete a older post')
+    parser.add_option('--dump', default=None, help='Delete a older post')
     opts, args = parser.parse_args()
 
     if not just_one(opts.new, opts.update, opts.delete):
         parser.error('Must specify exactly one from -n, -u, -d')
 
-    if opts.new or opts.update:
+    if opts.new or opts.update or opts.dump:
         if len(args) != 1:
             parser.error('Expected exactly one argument for -n/-u')
         filepath = args[0]
@@ -48,9 +49,14 @@ if __name__ == '__main__':
             post.content = body
             post.time_updated = datetime.datetime.now()
             post.save()
-        else:
+        elif opts.new:
             post = db.Post.new_post(title, body)
             print post.id
+        elif opts.dump:
+            post = get_post(opts.update)
+            print post.title
+            print
+            print post.content
     elif opts.delete:
         post = get_post(opts.delete)
         post.delete()

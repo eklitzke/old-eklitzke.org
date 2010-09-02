@@ -31,7 +31,7 @@ class MainHandler(RequestHandler):
         if post:
             posts = [db.Post.by_id(post)]
         else:
-            posts = db.Post.query(order_by='time_created', desc=True, limit=5)
+            posts = db.Post.query(c.active == True, order_by='time_created', desc=True, limit=5)
         self.env['posts'] = posts
         self.render('main.html')
 
