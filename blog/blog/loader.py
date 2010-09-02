@@ -32,8 +32,8 @@ if __name__ == '__main__':
     parser.add_option('--dump', default=None, help='Delete a older post')
     opts, args = parser.parse_args()
 
-    if not just_one(opts.new, opts.update, opts.delete):
-        parser.error('Must specify exactly one from -n, -u, -d')
+    if not just_one(opts.new, opts.update, opts.delete, opts.dump):
+        parser.error('Must specify exactly one from -n, -u, -d, --dump')
 
     if opts.new or opts.update or opts.dump:
         if len(args) != 1:
