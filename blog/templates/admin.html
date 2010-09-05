@@ -2,7 +2,6 @@
 
 {% block extra_js %}
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-<script src="{{static_url('js/admin.js')}}"></script>
 {% end %}
 
 {% block body %}
@@ -29,7 +28,7 @@
     {% else %}
     <td id="{{post.id}}_status" class="clickable red">inactive</td>
     {% end %}
-    <td>{{post.title}}</td>
+    <td><a class="nodecoration" href="/post/{{post.id}}">{{post.title}}</a></td>
     <td>{{post.time_created.strftime('%Y-%m-%d %H:%M')}}</td>
     <td>{{post.trimmed_content()}}</td>
   </tr>
@@ -57,14 +56,4 @@ $(document).ready(function () {
   {% end %}
 });
 </script>
-
-<br>
-<div>
-  <span class="bold">Post Id: </span>
-  <span class="tt pad_left" id="post_id">
-    {% if posts %}
-    {{posts[0].id}}
-    {% end %}
-  </span>
-</div>
 {% end %}

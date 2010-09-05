@@ -16,7 +16,8 @@ a { color: inherit; }
 .title { font-size: 120%; font-weight: bold; }
 
 .header { margin-bottom: 0.5em; }
-.header a { font-size: 90%; color: #888; margin-left: 1em; text-decoration: none; }
+.header a {text-decoration: none; }
+.header > .date {font-size: 90%; color: #888; margin-left: 1em; }
 .post_content { margin-bottom: 2em; }
 
 .clear { clear: both; }
@@ -25,6 +26,7 @@ a { color: inherit; }
 .green_bg { background: #d9ffe0; }
 .pad_left { margin-left: 1em; }
 .bpad { margin-bottom: 1em; }
+.nodecoration { text-decoration: none; }
 
 .clickable:hover { cursor: pointer; }
 

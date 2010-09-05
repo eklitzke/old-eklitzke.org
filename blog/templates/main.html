@@ -9,8 +9,8 @@
 {% for post in posts %}
 <div class="post">
   <div class="header">
-    <span class="title">{{ post.title }}</span>
-    <a href="/post/{{ post.id }}">{{ post.time_created.strftime('%Y-%m-%d %H:%M') }}</a>
+    <a href="/post/{{ post.id }}" class="title">{{ post.title }}</a>
+    <span class="date">{{ post.time_created.strftime('%Y-%m-%d %H:%M') }}</span>
   </div>
   <div class="post_content">
     {{ post.content }}
