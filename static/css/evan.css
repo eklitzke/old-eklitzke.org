@@ -25,5 +25,7 @@ strong { font-weight: bold; }
 p { margin-top: 1em; }
 .purple { color: #ad7fa8; }
 .green { color: #8ae234; }
+.red { color: #ff0000; }
 .blue { color: #729fcf; }
 .vgap { margin-top: 1em; }
+.clickable :hover { cursor: pointer; }

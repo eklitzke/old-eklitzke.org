@@ -1,5 +1,6 @@
 import tornado.web
 from tornado.web import authenticated
+from schemaless import c
 from blog import base_path, config
 from blog import db
 
@@ -60,6 +61,21 @@ class AdminHandler(RequestHandler):
         self.env['posts'] = db.Post.query(order_by='time_created', desc=True)
         self.render('admin.html')
 
+class ActivateHandler(RequestHandler):
+
+    path = r'/admin/activate/\w+'
+
+    @authenticated
+    def post(self):
+        post_id = self.request.uri.split('/')[-1]
+        post = db.Post.by_id(post_id)
+        status = self.get_argument('status')
+        if status == 'active':
+            post.active = True
+            post.save()
+        elif status == 'inactive':
+            post.active = False
+            post.save()
 
 paths = []
 for v in globals().values():

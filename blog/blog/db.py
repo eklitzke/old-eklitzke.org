@@ -14,8 +14,8 @@ Base = orm.make_base(session, tags_file=os.path.join(base_path, 'tags.yaml'))
 class Post(Base):
 
     _columns = [
-        orm.String('title', 255, nullable=False),
-        orm.Text('content', nullable=False),
+        orm.String('title', 255, required=True),
+        orm.Text('content', required=True),
         orm.DateTime('time_created'),
         orm.DateTime('time_updated'),
         orm.Boolean('active', default=False)
@@ -40,8 +40,8 @@ class Post(Base):
 class PostTag(Base):
 
     _columns = [
-        orm.Char('post_id', 32, nullable=False),
-        orm.String('tag', 255, nullable=False)
+        orm.Char('post_id', 32, required=True),
+        orm.String('tag', 255, required=True),
         ]
 
     _indexes = [['post_id'], ['tag']]

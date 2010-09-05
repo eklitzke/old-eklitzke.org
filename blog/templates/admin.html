@@ -22,14 +22,41 @@
     <th>Content</th>
   </tr>
 {% for post in posts %}
-  <tr title="{{post.id}}" onClick="updatePostId('{{post.id}}')">
-    <td>{{ "active" if post.active else "inactive" }}</td>
+  {% comment <tr title="{{post.id}}" onClick="updatePostId('{{post.id}}')"> %}
+  <tr>
+    {% if post.active %}
+    <td id="{{post.id}}_status" class="clickable green">active</td>
+    {% else %}
+    <td id="{{post.id}}_status" class="clickable red">inactive</td>
+    {% end %}
     <td>{{post.title}}</td>
     <td>{{post.time_created.strftime('%Y-%m-%d %H:%M')}}</td>
     <td>{{post.trimmed_content()}}</td>
   </tr>
 {% end %}
 </table>
+
+<script type="text/javascript">
+$(document).ready(function () {
+  {% for post in posts %}
+  document.getElementById('{{post.id}}_status')._status = {{ "true" if post.active else "false"}};
+  $('#{{post.id}}_status').click(function (e) {
+    e.preventDefault();
+    if (this._status) {
+      this._status = false;
+      this.className = 'clickable red';
+      this.innerText = 'inactive';
+      $.post('/admin/activate/{{post.id}}', {'status': 'inactive'});
+    } else {
+      this._status = true;
+      this.className = 'clickable green';
+      this.innerText = 'active';
+      $.post('/admin/activate/{{post.id}}', {'status': 'active'});
+    }
+  });
+  {% end %}
+});
+</script>
 
 <br>
 <div>

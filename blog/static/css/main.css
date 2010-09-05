@@ -25,3 +25,8 @@ a { color: inherit; }
 .green_bg { background: #d9ffe0; }
 .pad_left { margin-left: 1em; }
 .bpad { margin-bottom: 1em; }
+
+.clickable:hover { cursor: pointer; }
+
+.red { color: #9a0101; }
+.green { color: #008218; }
