@@ -2,18 +2,18 @@
 @import url(http://fonts.googleapis.com/css?family=Droid+Sans+Mono);
 
 html { font-family: 'Droid Sans', sans-serif; }
-#bd { margin: 2em; max-width: 800px; }
+#bd { margin: 2em; max-width: 800px; font-size: 116%; }
 th { padding-right: 1em; font-weight: bold; }
 td { padding-right: 1em; }
 p { margin-top: 1em; }
 a { color: inherit; }
 
-.blog_title { font-size: 150%; font-weight: bold; }
-.blog_subtitle { font-size: 110%; color: #666; margin-left: 1em; }
+.blog_title { font-size: 170%; font-weight: bold; letter-spacing: -1px; }
+.blog_subtitle { font-size: 108%; color: #666; margin-left: 1em; }
 .blog_heading { margin-bottom: 1em; }
 .blog_heading a { text-decoration: none; }
 
-.title { font-size: 120%; font-weight: bold; }
+.title { font-size: 123.1%; font-weight: bold; }
 
 .header { margin-bottom: 0.5em; }
 .header a {text-decoration: none; }
