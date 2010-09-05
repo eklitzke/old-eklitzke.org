@@ -8,6 +8,8 @@ td { padding-right: 1em; }
 p { margin-top: 1em; }
 a { color: inherit; }
 
+h3 { font-weight: bold; font-size: 108%; }
+
 .blog_title { font-size: 170%; font-weight: bold; letter-spacing: -1px; }
 .blog_subtitle { font-size: 108%; color: #666; margin-left: 1em; }
 .blog_heading { margin-bottom: 1em; }
