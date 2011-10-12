@@ -38,10 +38,9 @@ static void
 req_home_cb(struct evhttp_request *req, void *data)
 {
   ctemplate::TemplateDictionary dict("home");
-  dict.SetValue("title", "eklitzke.org");
-  dict.SetValue("body",
-                "hi, my name is evan klitzke. i like python, robots, and hip-hop. "
-                "email me at evan@eklitzke.org.");
+  dict.SetValue("TITLE", "eklitzke.org");
+  ctemplate::TemplateDictionary *child_dict = dict.AddIncludeDictionary("BODY");
+  child_dict->SetFilename("templates/home.html");
   respond(req, dict, HTTP_OK, "OK");
 }
 
@@ -49,8 +48,9 @@ static void
 req_generic_cb(struct evhttp_request *req, void *data)
 {
   ctemplate::TemplateDictionary dict("not_found");
-  dict.SetValue("title", "document not found");
-  dict.SetValue("body", "sorry, that url does not exist.");
+  dict.SetValue("TITLE", "document not found");
+  ctemplate::TemplateDictionary *child_dict = dict.AddIncludeDictionary("BODY");
+  child_dict->SetFilename("templates/error.html");
   respond(req, dict, HTTP_NOTFOUND, "Not Found");
 }
 
