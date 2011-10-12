@@ -12,36 +12,43 @@
 #include <boost/program_options.hpp>
 namespace po = boost::program_options;
 
-static void
-req_static_template(struct evhttp_request *req, const char *tmpl, int status, const char *reason)
+inline static void
+respond(struct evhttp_request *req, const ctemplate::TemplateDictionary &dict, int status, const char *reason)
 {
-  struct evbuffer* response;
-  ctemplate::TemplateDictionary dict("dict");
   std::string output;
+  struct evbuffer* response;
 
-  if ((response = evbuffer_new()) == NULL) {
-	return;
+  ctemplate::ExpandTemplate("templates/base.html", ctemplate::DO_NOT_STRIP, &dict, &output);
+  response = evbuffer_new();
+  if (response != NULL) {
+    evbuffer_add(response, output.c_str(), output.length());
+    evhttp_send_reply(req, status, reason, response);
+    evbuffer_free(response);
+  } else {
+    std::cerr << "failed to evbuffer_new()" << std::endl;
   }
-
-  ctemplate::ExpandTemplate(tmpl, ctemplate::DO_NOT_STRIP, &dict, &output);
-  evbuffer_add(response, output.c_str(), output.length());
-  evhttp_send_reply(req, status, reason, response);
-  evbuffer_free(response);
 }
-
 
 static void
 req_home_cb(struct evhttp_request *req, void *data)
 {
-  assert(data == NULL);
-  req_static_template(req, "templates/home.html", 200, "OK");
+  ctemplate::TemplateDictionary dict("home");
+  dict.SetValue("title", "eklitzke.org");
+  dict.SetValue("body",
+                "hi, my name is evan klitzke. i like python, robots, and hip-hop.\n"
+                "email me at &#x0065;&#x0076;&#x0061;&#x006e;&#x0040;&#x0065;&#x006b;"
+                "&#x006c;&#x0069;&#x0074;&#x007a;&#x006b;&#x0065;&#x002e;&#x006f;"
+                "&#x0072;&#x0067;.");
+  respond(req, dict, HTTP_OK, "OK");
 }
 
 static void
 req_generic_cb(struct evhttp_request *req, void *data)
 {
-  assert(data == NULL);
-  req_static_template(req, "templates/error.html", 404, "Not Found");
+  ctemplate::TemplateDictionary dict("not_found");
+  dict.SetValue("title", "document not found");
+  dict.SetValue("body", "sorry, that url does not exist.");
+  respond(req, dict, HTTP_NOTFOUND, "Not Found");
 }
 
 int main(int argc, char **argv) {
@@ -51,7 +58,6 @@ int main(int argc, char **argv) {
   struct evhttp *server = NULL;
   po::options_description desc("Server options");
   po::variables_map vm;
-
 
   desc.add_options()
     ("help,h", "produce help message")
