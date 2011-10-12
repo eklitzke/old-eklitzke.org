@@ -63,6 +63,7 @@ int main(int argc, char **argv) {
     ("help,h", "produce help message")
     ("port,p", po::value<int>(&port)->default_value(9000), "port to bind on")
     ("interface,i", po::value<std::string>(&iface)->default_value("0.0.0.0"), "interface to listen on")
+    ("daemon,d", "run as a daemon")
     ;
 
   po::store(po::parse_command_line(argc, argv, desc), vm);
@@ -81,6 +82,10 @@ int main(int argc, char **argv) {
   evhttp_set_cb(server, "/", req_home_cb, NULL);
   evhttp_set_gencb(server, req_generic_cb, NULL);
   evhttp_bind_socket(server, iface.c_str(), port);
+
+  if (vm.count("daemon")) {
+    daemon(1, 0);
+  }
 
   /* start the event loop */
   if (event_base_dispatch(base) != 0) {
