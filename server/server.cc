@@ -9,8 +9,12 @@
 #include <event2/event.h>
 #include <event2/http.h>
 
-#include <boost/program_options.hpp>
-namespace po = boost::program_options;
+#include <gflags/gflags.h>
+DEFINE_int32(port, 9000, "the port to listen on");
+DEFINE_string(iface, "0.0.0.0", "the interface to bind to");
+DEFINE_bool(daemon, false, "run as a daemon");
+
+#include <glog/logging.h>
 
 inline static void
 respond(struct evhttp_request *req, const ctemplate::TemplateDictionary &dict, int status, const char *reason)
@@ -37,6 +41,8 @@ respond(struct evhttp_request *req, const ctemplate::TemplateDictionary &dict, i
 static void
 req_home_cb(struct evhttp_request *req, void *data)
 {
+  LOG(INFO) << "got a request for /";
+
   ctemplate::TemplateDictionary dict("home");
   dict.SetValue("TITLE", "eklitzke.org");
   ctemplate::TemplateDictionary *child_dict = dict.AddIncludeDictionary("BODY");
@@ -47,6 +53,8 @@ req_home_cb(struct evhttp_request *req, void *data)
 static void
 req_generic_cb(struct evhttp_request *req, void *data)
 {
+  LOG(INFO) << "got a 404 request";
+
   ctemplate::TemplateDictionary dict("not_found");
   dict.SetValue("TITLE", "document not found");
   ctemplate::TemplateDictionary *child_dict = dict.AddIncludeDictionary("BODY");
@@ -55,22 +63,11 @@ req_generic_cb(struct evhttp_request *req, void *data)
 }
 
 int main(int argc, char **argv) {
-  int port;
-  std::string iface;
   struct event_base *base = NULL;
   struct evhttp *server = NULL;
-  po::options_description desc("Server options");
-  po::variables_map vm;
 
-  desc.add_options()
-    ("help,h", "produce help message")
-    ("port,p", po::value<int>(&port)->default_value(9000), "port to bind on")
-    ("interface,i", po::value<std::string>(&iface)->default_value("0.0.0.0"), "interface to listen on")
-    ("daemon,d", "run as a daemon")
-    ;
-
-  po::store(po::parse_command_line(argc, argv, desc), vm);
-  po::notify(vm);   
+  google::ParseCommandLineFlags(&argc, &argv, true);
+  google::InitGoogleLogging(argv[0]);
 
   if ((base = event_base_new()) == NULL) {
 	std::cerr << "failed to event_base_new()" << std::endl;
@@ -84,16 +81,16 @@ int main(int argc, char **argv) {
   evhttp_set_allowed_methods(server,  EVHTTP_REQ_GET);
   evhttp_set_cb(server, "/", req_home_cb, NULL);
   evhttp_set_gencb(server, req_generic_cb, NULL);
-  evhttp_bind_socket(server, iface.c_str(), port);
+  evhttp_bind_socket(server, FLAGS_iface.c_str(), FLAGS_port);
 
-  if (vm.count("daemon")) {
+  if (FLAGS_daemon) {
     daemon(1, 0);
   }
 
   /* start the event loop */
   if (event_base_dispatch(base) != 0) {
     std::cerr << "failed to event_base_dispatch(); check that " <<
-      iface << ":" << port << " is available" << std::endl;
+      FLAGS_iface << ":" << FLAGS_port << " is available" << std::endl;
     goto err;
   }
   

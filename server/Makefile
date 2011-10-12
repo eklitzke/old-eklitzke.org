@@ -1,16 +1,16 @@
 CC=g++
 CFLAGS=-Wall
 CTEMPLATE=-I$(HOME)/local/include -L$(HOME)/local/lib -lctemplate_nothreads
-BOOST_PO=-lboost_program_options
+GLIBS=-lgflags -lglog
 LIBEVENT=$(shell pkg-config --cflags --libs libevent)
 
 all: server
 
 server: server.cc
-	$(CC) -g $(CFLAGS) $(CTEMPLATE) $(LIBEVENT) $(BOOST_PO) $< -o $@
+	$(CC) -g $(CFLAGS) $(CTEMPLATE) $(LIBEVENT) $(GLIBS) $< -o $@
 
 tiny-server: server.cc
-	$(CC) -Os $(CFLAGS) $(CTEMPLATE) $(LIBEVENT) $(BOOST_PO) $< -o $@
+	$(CC) -Os $(CFLAGS) $(CTEMPLATE) $(LIBEVENT) $(GLIBS) $< -o $@
 	-strip -s $@
 
 clean:
