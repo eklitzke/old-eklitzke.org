@@ -1,6 +1,6 @@
 CC=g++
 CFLAGS=-Wall
-CTEMPLATE=-I$(HOME)/local/include -lctemplate
+CTEMPLATE=-I$(HOME)/local/include -L$(HOME)/local/lib -lctemplate
 BOOST_PO=-lboost_program_options
 LIBEVENT=$(shell pkg-config --cflags --libs libevent)
 
