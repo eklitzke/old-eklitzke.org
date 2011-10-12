@@ -22,7 +22,7 @@ respond(struct evhttp_request *req, const ctemplate::TemplateDictionary &dict, i
   headers = evhttp_request_get_output_headers(req);
   evhttp_add_header(headers, "Content-Type", "text/html; charset=utf-8");
 
-  ctemplate::ExpandTemplate("templates/base.html", ctemplate::DO_NOT_STRIP, &dict, &output);
+  ctemplate::ExpandTemplate("templates/base.html", ctemplate::STRIP_BLANK_LINES, &dict, &output);
   response = evbuffer_new();
   if (response != NULL) {
     evbuffer_add(response, output.c_str(), output.length());
@@ -40,10 +40,8 @@ req_home_cb(struct evhttp_request *req, void *data)
   ctemplate::TemplateDictionary dict("home");
   dict.SetValue("title", "eklitzke.org");
   dict.SetValue("body",
-                "hi, my name is evan klitzke. i like python, robots, and hip-hop.\n"
-                "email me at &#x0065;&#x0076;&#x0061;&#x006e;&#x0040;&#x0065;&#x006b;"
-                "&#x006c;&#x0069;&#x0074;&#x007a;&#x006b;&#x0065;&#x002e;&#x006f;"
-                "&#x0072;&#x0067;.");
+                "hi, my name is evan klitzke. i like python, robots, and hip-hop. "
+                "email me at evan@eklitzke.org.");
   respond(req, dict, HTTP_OK, "OK");
 }
 
