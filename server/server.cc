@@ -16,7 +16,11 @@ inline static void
 respond(struct evhttp_request *req, const ctemplate::TemplateDictionary &dict, int status, const char *reason)
 {
   std::string output;
-  struct evbuffer* response;
+  struct evbuffer *response;
+  struct evkeyvalq *headers;
+
+  headers = evhttp_request_get_output_headers(req);
+  evhttp_add_header(headers, "Content-Type", "text/html; charset=utf-8");
 
   ctemplate::ExpandTemplate("templates/base.html", ctemplate::DO_NOT_STRIP, &dict, &output);
   response = evbuffer_new();
@@ -27,6 +31,7 @@ respond(struct evhttp_request *req, const ctemplate::TemplateDictionary &dict, i
   } else {
     std::cerr << "failed to evbuffer_new()" << std::endl;
   }
+  assert(!evhttp_request_is_owned(req));
 }
 
 static void
