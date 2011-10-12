@@ -13,29 +13,42 @@
 namespace po = boost::program_options;
 
 static void
-local_cb(struct evhttp_request *req, void *data)
+req_static_template(struct evhttp_request *req, const char *tmpl, int status, const char *reason)
 {
-  assert(data == NULL);
+  struct evbuffer* response;
+  ctemplate::TemplateDictionary dict("dict");
+  std::string output;
 
-  struct evbuffer* response = NULL;
   if ((response = evbuffer_new()) == NULL) {
 	return;
   }
 
-  ctemplate::TemplateDictionary dict("home");
-  std::string output;
-  ctemplate::ExpandTemplate("home.html", ctemplate::DO_NOT_STRIP, &dict, &output);
+  ctemplate::ExpandTemplate(tmpl, ctemplate::DO_NOT_STRIP, &dict, &output);
   evbuffer_add(response, output.c_str(), output.length());
-  evhttp_send_reply(req, 200, "OK", response);
+  evhttp_send_reply(req, status, reason, response);
   evbuffer_free(response);
 }
 
 
+static void
+req_home_cb(struct evhttp_request *req, void *data)
+{
+  assert(data == NULL);
+  req_static_template(req, "templates/home.html", 200, "OK");
+}
+
+static void
+req_generic_cb(struct evhttp_request *req, void *data)
+{
+  assert(data == NULL);
+  req_static_template(req, "templates/error.html", 404, "Not Found");
+}
+
 int main(int argc, char **argv) {
   int port;
   std::string iface;
-  struct event_base *base;
-  struct evhttp *server;
+  struct event_base *base = NULL;
+  struct evhttp *server = NULL;
   po::options_description desc("Server options");
   po::variables_map vm;
 
@@ -58,7 +71,9 @@ int main(int argc, char **argv) {
     goto err;
   }
 
-  evhttp_set_cb(server, "/", local_cb, NULL);
+  evhttp_set_allowed_methods(server,  EVHTTP_REQ_GET);
+  evhttp_set_cb(server, "/", req_home_cb, NULL);
+  evhttp_set_gencb(server, req_generic_cb, NULL);
   evhttp_bind_socket(server, iface.c_str(), port);
 
   /* start the event loop */
