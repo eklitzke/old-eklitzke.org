@@ -6,11 +6,14 @@ LIBEVENT=$(shell pkg-config --cflags --libs libevent)
 
 all: server
 
-server: server.cc
-	$(CC) -g $(CFLAGS) $(CTEMPLATE) $(LIBEVENT) $(GLIBS) $< -o $@
+mime.o: mime.cc mime.hpp
+	$(CC) -c $<
 
-tiny-server: server.cc
-	$(CC) -Os $(CFLAGS) $(CTEMPLATE) $(LIBEVENT) $(GLIBS) $< -o $@
+server: server.cc mime.o
+	$(CC) -g $(CFLAGS) $(CTEMPLATE) $(LIBEVENT) $(GLIBS) mime.o $< -o $@
+
+tiny-server: server.cc mime.o
+	$(CC) -Os $(CFLAGS) $(CTEMPLATE) $(LIBEVENT) $(GLIBS) mime.o $< -o $@
 	-strip -s $@
 
 clean:

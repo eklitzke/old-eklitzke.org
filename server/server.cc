@@ -23,38 +23,7 @@ DEFINE_bool(chroot, true, "chroot after starting");
 
 #include <glog/logging.h>
 
-std::map<std::string, const char*> content_types;
-
-static void
-initialize(void)
-{
-  content_types["cc"]  = "text/plain";
-  content_types["h"]   = "text/plain";
-  content_types["ico"] = "image/x-icon";
-  content_types["jpg"] = "image/jpeg";
-  content_types["png"] = "image/png";
-  content_types["txt"] = "text/plain";
-}
-
-static void
-finish(void)
-{
-  content_types.clear();
-}
-
-static const char *
-get_content_type(const std::string &filename) {
-  size_t dotpos = filename.find_last_of('.');
-  if (dotpos == filename.npos) {
-    return "application/octet-stream";
-  }
-  std::string extension = filename.substr(dotpos + 1, filename.length() - dotpos);
-  if (content_types.count(extension)) {
-    return content_types[extension];
-  } else {
-    return "application/octet-stream";
-  }
-}
+#include "mime.hpp"
 
 inline static void
 respond(struct evhttp_request *req, const ctemplate::TemplateDictionary &dict, int status, const char *reason)
@@ -122,7 +91,7 @@ req_generic_cb(struct evhttp_request *req, void *data)
       goto notfound;
       
     struct evkeyvalq *headers = evhttp_request_get_output_headers(req);
-    evhttp_add_header(headers, "Content-Type", get_content_type(path + offset));
+    evhttp_add_header(headers, "Content-Type", eck::mime::get_content_type(path + offset).c_str());
 
     free(path);
     struct evbuffer *response = evbuffer_new();
@@ -138,12 +107,13 @@ req_generic_cb(struct evhttp_request *req, void *data)
 }
 
 int main(int argc, char **argv) {
+  struct passwd *p = NULL;
   struct event_base *base = NULL;
   struct evhttp *server = NULL;
 
   google::ParseCommandLineFlags(&argc, &argv, true);
   google::InitGoogleLogging(argv[0]);
-  initialize();
+  eck::mime::initialize();
 
   if ((base = event_base_new()) == NULL) {
 	std::cerr << "failed to event_base_new()" << std::endl;
@@ -155,14 +125,7 @@ int main(int argc, char **argv) {
   }
 
   if (FLAGS_user.length()) {
-    //struct passwd *p = getpwnam(FLAGS_user.c_str());
-    struct passwd *p = getpwnam("evan");
-    if (p != NULL) {
-      setuid(p->pw_uid);
-      setgid(p->pw_gid);
-    } else {
-      LOG(WARNING) << "failed to lookup user " << FLAGS_user << ", errno " << errno;
-    }
+    p = getpwnam(FLAGS_user.c_str());
   }
   if (FLAGS_chroot) {
     char *rp = NULL;
@@ -176,6 +139,10 @@ int main(int argc, char **argv) {
     } else {
       LOG(INFO) << "failed to realpath";
     }
+  }
+  if (p != NULL) {
+    setuid(p->pw_uid);
+    setgid(p->pw_gid);
   }
 
   evhttp_set_allowed_methods(server,  EVHTTP_REQ_GET);
@@ -195,13 +162,13 @@ int main(int argc, char **argv) {
   }
   
   /* cleanup */
-  finish();
+  eck::mime::finish();
   evhttp_free(server);
   event_base_free(base);
   return EXIT_SUCCESS;
 
  err:
-  finish();
+  eck::mime::finish();
   if (server)
     evhttp_free(server);
   if (base)
