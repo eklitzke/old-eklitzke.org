@@ -140,15 +140,16 @@ int main(int argc, char **argv) {
       LOG(INFO) << "failed to realpath";
     }
   }
-  if (p != NULL) {
-    setuid(p->pw_uid);
-    setgid(p->pw_gid);
-  }
 
   evhttp_set_allowed_methods(server,  EVHTTP_REQ_GET);
   evhttp_set_cb(server, "/", req_home_cb, NULL);
   evhttp_set_gencb(server, req_generic_cb, NULL);
   evhttp_bind_socket(server, FLAGS_iface.c_str(), FLAGS_port);
+
+  if (p != NULL) {
+    setuid(p->pw_uid);
+    setgid(p->pw_gid);
+  }
 
   if (FLAGS_daemon) {
     daemon(1, 0);
